@@ -3,7 +3,8 @@ export type User = {
   username: string,
   role: string,
   email: string,
-  token?: string
+  token?: string,
+  password?: string,
 };
 
 export type Team = {

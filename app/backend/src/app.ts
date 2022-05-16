@@ -1,5 +1,7 @@
+import 'dotenv/config';
 import * as express from 'express';
-// import router from './routes';
+import routes from './routes/login';
+import error from './middlewares/error';
 
 class App {
   public app: express.Express;
@@ -7,8 +9,8 @@ class App {
   constructor() {
     this.app = express();
     this.config();
-    // this.app.use(router); - a implementar
-    // this.app.use(error); - a implementar
+    this.setRoutes();
+    this.setErrorHandler();
   }
 
   private config():void {
@@ -27,6 +29,14 @@ class App {
     this.app.listen(PORT, () => console.log(
       `Server is running on PORT: ${PORT}`,
     ));
+  }
+
+  public setRoutes(): void {
+    this.app.use('/login', routes);
+  }
+
+  public setErrorHandler(): void {
+    this.app.use(error);
   }
 }
 
