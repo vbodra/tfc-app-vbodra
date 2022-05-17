@@ -12,25 +12,15 @@ export type Team = {
   teamName: string,
 };
 
-export interface IMatchGoals {
-  homeTeamGoals: number,
-  awayTeamGoals: number,
-}
-
-export interface IMatchesRequest extends IMatchGoals {
-  id?: number,
-  homeTeam: number,
-  awayTeam: number,
-  inProgress: boolean,
-}
-
-export interface IMatches extends IMatchGoals {
+export interface IMatches {
   id: number,
   homeTeam: number,
   awayTeam: number,
   inProgress: boolean,
-  teamHome: { teamName: string },
-  teamAway: { teamName: string },
+  homeTeamGoals: number,
+  awayTeamGoals: number,
+  teamAway?: { teamName: string },
+  teamHome?: { teamName: string },
 }
 
 export type LeaderBoard = {
