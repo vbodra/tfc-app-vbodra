@@ -4,11 +4,16 @@ import Teams from './Teams';
 
 class Matches extends Model {
   id!: number;
-  home_team!: number;
-  home_team_goals!: number;
-  away_team!: number;
-  away_team_goals!: number;
-  in_progress!: number;
+
+  homeTeam!: number;
+
+  homeTeamGoals!: number;
+
+  awayTeam!: number;
+
+  awayTeamGoals!: number;
+
+  inProgress!: number;
 }
 
 Matches.init({
@@ -18,29 +23,29 @@ Matches.init({
     primaryKey: true,
     autoIncrement: true,
   },
-  home_team: {
+  homeTeam: {
     type: DataTypes.INTEGER,
     references: {
       model: Teams,
       key: 'id',
     },
   },
-  home_team_goals: {
+  homeTeamGoals: {
     type: DataTypes.INTEGER,
   },
-  away_team: {
+  awayTeam: {
     type: DataTypes.INTEGER,
     references: {
       model: Teams,
       key: 'id',
     },
   },
-  away_team_goals: {
+  awayTeamGoals: {
     type: DataTypes.INTEGER,
   },
-  in_progress: {
+  inProgress: {
     type: DataTypes.INTEGER,
-  }
+  },
 }, {
   underscored: true,
   sequelize: db,

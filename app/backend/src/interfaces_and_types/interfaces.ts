@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { User } from './types';
+import { User, Team } from './types';
 
 export interface IUserDB {
   getByEmail(email: string): Promise< User | null >,
@@ -14,4 +14,14 @@ export interface ILoginService {
 
 export interface IValidation {
   verifyEmailAndPassword(req: Request, res: Response, next: NextFunction): void,
+}
+
+export interface ITeamsService {
+  getAll(): Promise<Team[] | null>
+  getById(id: number): Promise<Team | null>
+}
+
+export interface ITeamDB {
+  getAll(): Promise<Team[] | null>,
+  getById(id: number): Promise<Team | null>
 }
