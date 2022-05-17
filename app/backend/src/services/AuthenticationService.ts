@@ -53,8 +53,8 @@ export default class AuthenticationService {
     return token;
   }
 
-  public getRoleFromVerifiedToken(token: string): string {
-    const verifiedToken = this._jwt.verify(token, this._jwtSecret) as {
+  public async getRoleFromVerifiedToken(token: string): Promise<string> {
+    const verifiedToken = await this._jwt.verify(token, this._jwtSecret) as {
       email: string,
       role: string
     };

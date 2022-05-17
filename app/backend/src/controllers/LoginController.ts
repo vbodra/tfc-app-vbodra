@@ -36,16 +36,20 @@ export default class LoginController {
   public async login(req: Request, res: Response, _next: NextFunction): Promise<Response> {
     const { email, user } = req.body;
 
-    const token = this._authService.generateToken(email);
+    const token = this._authService.generateToken(email, user.role);
 
     return res.status(200).json({ user, token });
   }
 
-  public getRoleFromValidatedUser(req: Request, res: Response, _next: NextFunction): Response {
+  public async getRoleFromValidatedUser(
+    req: Request,
+    res: Response,
+    _next: NextFunction,
+  ): Promise<Response> {
     const { authorization } = req.headers;
 
-    const validatedUser = this._authService.getRoleFromVerifiedToken(authorization as string);
+    const validatedUser = await this._authService.getRoleFromVerifiedToken(authorization as string);
 
-    return res.status(200).json(validatedUser.role);
+    return res.status(200).json(validatedUser);
   }
 }
