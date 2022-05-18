@@ -29,11 +29,11 @@ export const tokenNotFound = {
 };
 
 export const teamInMatchesMustBeDifferent = {
-  status: 400,
-  message: 'A team can not play against itself!',
+  status: 401,
+  message: 'It is not possible to create a match with two equal teams',
 };
 
 export const atLeastOneInvalidTeam = {
-  status: 400,
-  message: 'At least one team of the send match does not exist',
+  status: 404,
+  message: 'There is no team with such id!',
 };
