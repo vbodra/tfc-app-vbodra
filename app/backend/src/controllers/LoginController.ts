@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 
 import { User } from '../interfaces_and_types/types';
-import { ILoginService } from '../interfaces_and_types/interfaces';
+import { IAuthService, ILoginService } from '../interfaces_and_types/interfaces';
 
 import { invalidEmailOrPassword, emailAndPasswordRequired } from '../error_messages';
 
@@ -14,7 +14,7 @@ export default class LoginController {
 
   private _password: string;
 
-  constructor(loginService: ILoginService, auth: any) {
+  constructor(loginService: ILoginService, auth: IAuthService) {
     this._loginService = loginService;
     this._authService = auth;
   }

@@ -11,6 +11,7 @@ export interface ILoginService {
 
 export interface IAuthService {
   verifyToken(token: string): { email: string, role: string }
+  generateToken(email: string, role: string): string
 }
 
 export interface IValidation {
