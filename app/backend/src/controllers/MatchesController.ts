@@ -1,15 +1,19 @@
 import { NextFunction, Response, Request } from 'express';
 import { Matches } from '../interfaces_and_types/types';
-import { IMatchesService } from '../interfaces_and_types/interfaces';
-import { inProgressMustBeTrue } from '../error_messages';
+import { IMatchesService, ITeamsService } from '../interfaces_and_types/interfaces';
+import { inProgressMustBeTrue, teamInMatchesMustBeDifferent,
+  atLeastOneInvalidTeam } from '../error_messages';
 
 export default class MatchesController {
   private _matchesServices: IMatchesService;
 
   private _inProgress: boolean;
 
-  constructor(matchesServices: IMatchesService) {
+  private _teamsServices: ITeamsService;
+
+  constructor(matchesServices: IMatchesService, teamsServices: ITeamsService) {
     this._matchesServices = matchesServices;
+    this._teamsServices = teamsServices;
   }
 
   public async getAll(req: Request, res: Response, _next: NextFunction): Promise<Response> {
@@ -31,12 +35,19 @@ export default class MatchesController {
     res: Response,
     next: NextFunction,
   ): Promise<Response | void> {
-    const { inProgress } = req.body;
+    const { inProgress, awayTeam, homeTeam } = req.body;
 
+    if (homeTeam === awayTeam) return next(teamInMatchesMustBeDifferent);
     if (inProgress !== true) return next(inProgressMustBeTrue);
 
-    const postedMatch = await this._matchesServices.create(req.body);
+    const homeTeamExist = await this._teamsServices.getById(homeTeam);
+    const awayTeamExist = await this._teamsServices.getById(awayTeam);
+    if (homeTeamExist && awayTeamExist) {
+      const postedMatch = await this._matchesServices.create(req.body);
 
-    return res.status(201).json(postedMatch);
+      return res.status(201).json(postedMatch);
+    }
+
+    next(atLeastOneInvalidTeam);
   }
 }

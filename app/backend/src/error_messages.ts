@@ -27,3 +27,13 @@ export const tokenNotFound = {
   status: 401,
   message: 'Token not found',
 };
+
+export const teamInMatchesMustBeDifferent = {
+  status: 400,
+  message: 'A team can not play against itself!',
+};
+
+export const atLeastOneInvalidTeam = {
+  status: 400,
+  message: 'At least one team of the send match does not exist',
+};

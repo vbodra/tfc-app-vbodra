@@ -5,14 +5,18 @@ import Validation from '../middlewares/Validation';
 import MatchesService from '../services/MatchesServices';
 import MatchesController from '../controllers/MatchesController';
 import MatchesOnSequelize from '../database/models/abstractions/Matches';
+import SequelizeTeamModel from '../database/models/abstractions/Teams';
+import TeamsServices from '../services/TeamsServices';
 
 const matchesRouter = Router();
 
 const auth = new AuthenticationService();
 const validation = new Validation(auth);
-const model = new MatchesOnSequelize();
-const service = new MatchesService(model);
-const controller = new MatchesController(service);
+const matchesModel = new MatchesOnSequelize();
+const teamsModel = new SequelizeTeamModel();
+const matchesService = new MatchesService(matchesModel);
+const teamsServices = new TeamsServices(teamsModel);
+const controller = new MatchesController(matchesService, teamsServices);
 
 matchesRouter.get(
   '/',
