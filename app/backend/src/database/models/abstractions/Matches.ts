@@ -37,4 +37,8 @@ export default class SequelizeMatchesModel implements IMatchesDB {
 
     return foundOrCreatedMatch;
   }
+
+  public async update(id: number): Promise<void> {
+    await this._matchesModel.update({ inProgress: false }, { where: { id } });
+  }
 }

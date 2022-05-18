@@ -19,4 +19,8 @@ export default class MatchesServices implements IMatchesService {
 
     return createdMatch;
   }
+
+  public async update(id: number) {
+    await this._matchesModel.update(id);
+  }
 }

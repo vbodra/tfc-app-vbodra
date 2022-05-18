@@ -31,9 +31,11 @@ export interface ITeamDB {
 export interface IMatchesService {
   getAll(): Promise<Matches[] | null>
   create(match: Matches): Promise<Matches>
+  update(id: number): void
 }
 
 export interface IMatchesDB {
   getAll(): Promise<Matches[] | null>,
   create(match: Matches): Promise<Matches>
+  update(id: number): void
 }

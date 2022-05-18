@@ -50,4 +50,16 @@ export default class MatchesController {
 
     next(atLeastOneInvalidTeam);
   }
+
+  public async update(
+    req: Request,
+    res: Response,
+    _next: NextFunction,
+  ): Promise<void> {
+    const { id } = req.params;
+
+    await this._matchesServices.update(JSON.parse(id));
+
+    res.status(200).json({ message: 'Finished' });
+  }
 }
