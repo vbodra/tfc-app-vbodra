@@ -4,7 +4,6 @@ import { User } from '../interfaces_and_types/types';
 import { IAuthService, ILoginService } from '../interfaces_and_types/interfaces';
 
 import { invalidEmailOrPassword, emailAndPasswordRequired } from '../error_messages';
-import console = require('console');
 
 export default class LoginController {
   private _loginService;
