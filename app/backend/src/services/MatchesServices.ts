@@ -13,4 +13,10 @@ export default class MatchesServices implements IMatchesService {
 
     return matches;
   }
+
+  public async create(match: IMatches) {
+    const createdMatch = await this._matchesModel.create(match);
+
+    return createdMatch;
+  }
 }

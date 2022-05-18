@@ -28,4 +28,10 @@ export default class SequelizeMatchesModel implements IMatchesDB {
 
     return matches;
   }
+
+  public async create(match: IMatches): Promise<IMatches> {
+    const createdMatch = await this._matchesModel.create(match);
+
+    return createdMatch;
+  }
 }

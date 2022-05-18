@@ -17,3 +17,13 @@ export const teamDoesntExist = {
   status: 400,
   message: 'There is no team with such id!',
 };
+
+export const inProgressMustBeTrue = {
+  status: 400,
+  message: 'Field inProgress must be true',
+};
+
+export const tokenNotFound = {
+  status: 401,
+  message: 'Token not found',
+};

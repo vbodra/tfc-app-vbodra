@@ -3,12 +3,16 @@ import { Request, Response, NextFunction } from 'express';
 import { User } from '../interfaces_and_types/types';
 import { ILoginService } from '../interfaces_and_types/interfaces';
 
-import { invalidEmailOrPassword } from '../error_messages';
+import { invalidEmailOrPassword, emailAndPasswordRequired } from '../error_messages';
 
 export default class LoginController {
   private _loginService;
 
   private _authService;
+
+  private _email: string;
+
+  private _password: string;
 
   constructor(loginService: ILoginService, auth: any) {
     this._loginService = loginService;
@@ -48,8 +52,28 @@ export default class LoginController {
   ): Promise<Response> {
     const { authorization } = req.headers;
 
-    const validatedUser = await this._authService.getRoleFromVerifiedToken(authorization as string);
+    const { role } = await this
+      ._authService.verifyToken(authorization as string);
 
-    return res.status(200).json(validatedUser);
+    return res.status(200).json(role);
+  }
+
+  public verifyEmailAndPassword(req: Request, _res: Response, next: NextFunction): void {
+    const { email, password } = req.body;
+    this._email = email;
+    this._password = password;
+
+    if (!this._email || !this._password) return next(emailAndPasswordRequired);
+    if (LoginController.validateEmail(this._email)) return next(invalidEmailOrPassword);
+    if (this._password.length <= 6) return next(invalidEmailOrPassword);
+
+    return next();
+  }
+
+  static validateEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (email.match(emailRegex)) return true;
+
+    return false;
   }
 }

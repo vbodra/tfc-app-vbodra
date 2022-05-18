@@ -1,6 +1,7 @@
 import { NextFunction, Response, Request } from 'express';
 import { IMatches } from '../interfaces_and_types/types';
 import { IMatchesService } from '../interfaces_and_types/interfaces';
+import { inProgressMustBeTrue } from '../error_messages';
 
 export default class MatchesController {
   private _matchesServices: IMatchesService;
@@ -23,5 +24,19 @@ export default class MatchesController {
     const filteredMatches = matches?.filter((match) => match.inProgress === this._inProgress);
 
     return res.status(200).json(filteredMatches);
+  }
+
+  public async create(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response | void> {
+    const { inProgress } = req.body;
+
+    if (inProgress !== 'true') return next(inProgressMustBeTrue);
+
+    const postedMatch = this._matchesServices.create(req.body);
+
+    return res.status(201).json(postedMatch);
   }
 }

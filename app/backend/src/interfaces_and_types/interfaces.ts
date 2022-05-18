@@ -7,13 +7,14 @@ export interface IUserDB {
 
 export interface ILoginService {
   authenticateUser(email: string, password: string): Promise<User | boolean>,
-  generateToken(email: string, role: string): string,
-  getRoleFromVerifiedToken(token: string): string,
-  validateEmail(email: string): boolean,
+}
+
+export interface IAuthService {
+  verifyToken(token: string): { email: string, role: string }
 }
 
 export interface IValidation {
-  verifyEmailAndPassword(req: Request, res: Response, next: NextFunction): void,
+  verifyToken(req: Request, res: Response, next: NextFunction): void,
 }
 
 export interface ITeamsService {
@@ -28,8 +29,10 @@ export interface ITeamDB {
 
 export interface IMatchesService {
   getAll(): Promise<IMatches[] | null>
+  create(match: IMatches): Promise<IMatches>
 }
 
 export interface IMatchesDB {
   getAll(): Promise<IMatches[] | null>,
+  create(match: IMatches): Promise<IMatches>
 }
