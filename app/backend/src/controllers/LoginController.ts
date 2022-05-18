@@ -4,6 +4,7 @@ import { User } from '../interfaces_and_types/types';
 import { IAuthService, ILoginService } from '../interfaces_and_types/interfaces';
 
 import { invalidEmailOrPassword, emailAndPasswordRequired } from '../error_messages';
+import console = require('console');
 
 export default class LoginController {
   private _loginService;
@@ -64,7 +65,7 @@ export default class LoginController {
     this._password = password;
 
     if (!this._email || !this._password) return next(emailAndPasswordRequired);
-    if (LoginController.validateEmail(this._email)) return next(invalidEmailOrPassword);
+    if (!LoginController.validateEmail(this._email)) return next(invalidEmailOrPassword);
     if (this._password.length <= 6) return next(invalidEmailOrPassword);
 
     return next();
