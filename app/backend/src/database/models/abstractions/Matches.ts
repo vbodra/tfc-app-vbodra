@@ -30,12 +30,12 @@ export default class SequelizeMatchesModel implements IMatchesDB {
   }
 
   public async create(match: Matches): Promise<Matches> {
-    const [foundOrCreatedMatch] = await this._matchesModel.findOrCreate({
+    const createdMatch = await this._matchesModel.create({
       defaults: match,
       where: { homeTeam: match.homeTeam, awayTeam: match.awayTeam },
     });
 
-    return foundOrCreatedMatch;
+    return createdMatch;
   }
 
   public async update(id: number): Promise<void> {
