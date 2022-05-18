@@ -33,9 +33,9 @@ export default class MatchesController {
   ): Promise<Response | void> {
     const { inProgress } = req.body;
 
-    if (inProgress !== 'true') return next(inProgressMustBeTrue);
+    if (inProgress !== true) return next(inProgressMustBeTrue);
 
-    const postedMatch = this._matchesServices.create(req.body);
+    const postedMatch = await this._matchesServices.create(req.body);
 
     return res.status(201).json(postedMatch);
   }
