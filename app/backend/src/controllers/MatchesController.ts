@@ -1,5 +1,5 @@
 import { NextFunction, Response, Request } from 'express';
-import { IMatches } from '../interfaces_and_types/types';
+import { Matches } from '../interfaces_and_types/types';
 import { IMatchesService } from '../interfaces_and_types/interfaces';
 import { inProgressMustBeTrue } from '../error_messages';
 
@@ -15,7 +15,7 @@ export default class MatchesController {
   public async getAll(req: Request, res: Response, _next: NextFunction): Promise<Response> {
     const { inProgress } = req.query;
 
-    const matches = await this._matchesServices.getAll() as IMatches[];
+    const matches = await this._matchesServices.getAll() as Matches[];
     if (!inProgress) {
       return res.status(200).json(matches);
     }

@@ -1,16 +1,16 @@
 import { IMatchesDB } from '../../../interfaces_and_types/interfaces';
-import { IMatches } from '../../../interfaces_and_types/types';
-import Matches from '../Matches';
+import { Matches } from '../../../interfaces_and_types/types';
+import MatchesDB from '../Matches';
 import Teams from '../Teams';
 
 export default class SequelizeMatchesModel implements IMatchesDB {
   private _matchesModel;
 
   constructor() {
-    this._matchesModel = Matches;
+    this._matchesModel = MatchesDB;
   }
 
-  public async getAll(): Promise<IMatches[] | null> {
+  public async getAll(): Promise<Matches[] | null> {
     const matches = await this._matchesModel.findAll({
       include: [
         {
@@ -29,7 +29,7 @@ export default class SequelizeMatchesModel implements IMatchesDB {
     return matches;
   }
 
-  public async create(match: IMatches): Promise<IMatches> {
+  public async create(match: Matches): Promise<Matches> {
     const createdMatch = await this._matchesModel.create(match);
 
     return createdMatch;

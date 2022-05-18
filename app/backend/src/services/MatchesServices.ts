@@ -1,4 +1,4 @@
-import { IMatches } from '../interfaces_and_types/types';
+import { Matches } from '../interfaces_and_types/types';
 import { IMatchesService, IMatchesDB } from '../interfaces_and_types/interfaces';
 
 export default class MatchesServices implements IMatchesService {
@@ -8,13 +8,13 @@ export default class MatchesServices implements IMatchesService {
     this._matchesModel = model;
   }
 
-  public async getAll(): Promise<IMatches[] | null> {
+  public async getAll(): Promise<Matches[] | null> {
     const matches = await this._matchesModel.getAll();
 
     return matches;
   }
 
-  public async create(match: IMatches) {
+  public async create(match: Matches) {
     const createdMatch = await this._matchesModel.create(match);
 
     return createdMatch;

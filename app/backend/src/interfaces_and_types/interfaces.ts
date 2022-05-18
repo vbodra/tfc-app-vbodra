@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { User, Team, IMatches } from './types';
+import { User, Team, Matches } from './types';
 
 export interface IUserDB {
   getByEmail(email: string): Promise< User | null >,
@@ -29,11 +29,11 @@ export interface ITeamDB {
 }
 
 export interface IMatchesService {
-  getAll(): Promise<IMatches[] | null>
-  create(match: IMatches): Promise<IMatches>
+  getAll(): Promise<Matches[] | null>
+  create(match: Matches): Promise<Matches>
 }
 
 export interface IMatchesDB {
-  getAll(): Promise<IMatches[] | null>,
-  create(match: IMatches): Promise<IMatches>
+  getAll(): Promise<Matches[] | null>,
+  create(match: Matches): Promise<Matches>
 }

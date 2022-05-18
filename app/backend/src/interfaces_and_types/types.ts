@@ -12,7 +12,7 @@ export type Team = {
   teamName: string,
 };
 
-export interface IMatches {
+export type Matches = {
   id: number,
   homeTeam: number,
   awayTeam: number,
@@ -21,7 +21,7 @@ export interface IMatches {
   awayTeamGoals: number,
   teamAway?: { teamName: string },
   teamHome?: { teamName: string },
-}
+};
 
 export type LeaderBoard = {
   rank?: number,
