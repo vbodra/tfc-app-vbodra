@@ -38,4 +38,17 @@ export default class SequelizeMatchesModel implements IMatchesDB {
   public async update(id: number): Promise<void> {
     await this._matchesModel.update({ inProgress: false }, { where: { id } });
   }
+
+  public async updateGoals(
+    id: number,
+    homeTeamGoals: number,
+    awayTeamGoals: number,
+  ): Promise<number> {
+    const [response] = await this._matchesModel.update(
+      { homeTeamGoals, awayTeamGoals },
+      { where: { id, inProgress: true } },
+    );
+
+    return response;
+  }
 }

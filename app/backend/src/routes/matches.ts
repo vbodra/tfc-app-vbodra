@@ -34,4 +34,9 @@ matchesRouter.patch(
   (req, res, next) => controller.update(req, res, next),
 );
 
+matchesRouter.patch(
+  '/:id',
+  (req, res, next) => controller.updateGoals(req, res, next),
+);
+
 export default matchesRouter;

@@ -32,10 +32,12 @@ export interface IMatchesService {
   getAll(): Promise<Matches[] | null>
   create(match: Matches): Promise<Matches>
   update(id: number): void
+  updateGoals(id: number, homeTeamGoals: number, awayTeamGoals: number): Promise<number>
 }
 
 export interface IMatchesDB {
   getAll(): Promise<Matches[] | null>,
   create(match: Matches): Promise<Matches>
   update(id: number): void
+  updateGoals(id: number, homeTeamGoals: number, awayTeamGoals: number): Promise<number>
 }

@@ -21,6 +21,14 @@ export default class MatchesServices implements IMatchesService {
   }
 
   public async update(id: number) {
-    await this._matchesModel.update(id);
+    this._matchesModel.update(id);
+  }
+
+  public async updateGoals(
+    id: number,
+    homeTeamGoals: number,
+    awayTeamGoals: number,
+  ): Promise<number> {
+    return this._matchesModel.updateGoals(id, homeTeamGoals, awayTeamGoals);
   }
 }

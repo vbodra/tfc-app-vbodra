@@ -58,8 +58,24 @@ export default class MatchesController {
   ): Promise<void> {
     const { id } = req.params;
 
-    await this._matchesServices.update(JSON.parse(id));
+    this._matchesServices.update(JSON.parse(id));
 
     res.status(200).json({ message: 'Finished' });
+  }
+
+  public async updateGoals(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
+    const { homeTeamGoals, awayTeamGoals } = req.body;
+    const { id } = req.params;
+
+    const a = await this
+      ._matchesServices.updateGoals(JSON.parse(id), homeTeamGoals, awayTeamGoals);
+
+    if (a === 0) return next({ status: 400, message: 'match not found or already finished' });
+
+    res.status(204).end();
   }
 }
