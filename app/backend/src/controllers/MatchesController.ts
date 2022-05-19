@@ -74,7 +74,7 @@ export default class MatchesController {
     const a = await this
       ._matchesServices.updateGoals(JSON.parse(id), homeTeamGoals, awayTeamGoals);
 
-    if (a === 0) return next({ status: 400, message: 'match not found or already finished' });
+    if (a === 0) return next(atLeastOneInvalidTeam);
 
     res.status(204).end();
   }
