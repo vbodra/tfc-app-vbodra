@@ -7,18 +7,14 @@ import { tokenNotFound } from '../error_messages';
 export default class Validation implements IValidation {
   private _service;
 
-  private _email: string;
-
-  private _password: string;
-
   constructor(service: IAuthService) {
     this._service = service;
   }
 
-  public verifyToken(req: Request, res: Response, next: NextFunction): void {
+  public async verifyToken(req: Request, res: Response, next: NextFunction): Promise<void> {
     const { authorization } = req.headers;
 
-    const verifiedToken = this._service.verifyToken(authorization as string);
+    const verifiedToken = await this._service.verifyToken(authorization as string);
 
     if (verifiedToken !== null) return next();
 

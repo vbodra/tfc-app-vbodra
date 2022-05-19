@@ -40,15 +40,15 @@ export default class MatchesController {
     if (homeTeam === awayTeam) return next(teamInMatchesMustBeDifferent);
     if (inProgress !== true) return next(inProgressMustBeTrue);
 
-    const homeTeamExist = await this._teamsServices.getById(homeTeam);
-    const awayTeamExist = await this._teamsServices.getById(awayTeam);
-    if (homeTeamExist && awayTeamExist) {
-      const postedMatch = await this._matchesServices.create(req.body);
+    const allTeams = await this._teamsServices.getAll() as [];
 
-      return res.status(201).json(postedMatch);
+    if (homeTeam > allTeams.length || awayTeam > allTeams.length) {
+      return next(atLeastOneInvalidTeam);
     }
 
-    next(atLeastOneInvalidTeam);
+    const postedMatch = await this._matchesServices.create(req.body);
+
+    return res.status(201).json(postedMatch);
   }
 
   public async update(
