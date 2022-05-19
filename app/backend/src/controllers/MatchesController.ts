@@ -76,6 +76,6 @@ export default class MatchesController {
 
     if (a === 0) return next(atLeastOneInvalidTeam);
 
-    res.status(204).end();
+    res.status(200).json({ homeTeamGoals, awayTeamGoals });
   }
 }
