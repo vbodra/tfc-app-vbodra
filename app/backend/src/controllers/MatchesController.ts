@@ -38,13 +38,13 @@ export default class MatchesController {
     const { inProgress, awayTeam, homeTeam } = req.body;
 
     if (homeTeam === awayTeam) return next(teamInMatchesMustBeDifferent);
-    if (inProgress !== true) return next(inProgressMustBeTrue);
 
     const allTeams = await this._teamsServices.getAll() as [];
 
     if (homeTeam > allTeams.length || awayTeam > allTeams.length) {
       return next(atLeastOneInvalidTeam);
     }
+    if (inProgress !== true) return next(inProgressMustBeTrue);
 
     const postedMatch = await this._matchesServices.create(req.body);
 
