@@ -118,14 +118,14 @@ export default class LeaderBoardServices implements ILeaderBoardService {
 
     if (match.homeTeamGoals === match.awayTeamGoals) {
       this.totalDraws += 1;
-    }
-
-    switch (match.homeTeamGoals < match.awayTeamGoals) {
-      case true:
-        this.totalVictories += 1;
-        break;
-      default:
-        this.totalLosses += 1;
+    } else {
+      switch (match.homeTeamGoals < match.awayTeamGoals) {
+        case true:
+          this.totalVictories += 1;
+          break;
+        default:
+          this.totalLosses += 1;
+      }
     }
   }
 
