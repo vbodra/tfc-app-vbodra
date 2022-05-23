@@ -41,7 +41,6 @@ export default class LeaderBoardServices implements ILeaderBoardService {
       this.resetThisProperties();
       this.name = teamMatches.teamName;
 
-      console.log(typeof awayOrHome);
       switch (awayOrHome) {
         case '/away':
           teamMatches.away.map((match) => this.calculateWinLossesAndDrawsAwayFromHome(match));
@@ -101,14 +100,14 @@ export default class LeaderBoardServices implements ILeaderBoardService {
 
     if (match.awayTeamGoals === match.homeTeamGoals) {
       this.totalDraws += 1;
-    }
-
-    switch (match.awayTeamGoals < match.homeTeamGoals) {
-      case true:
-        this.totalVictories += 1;
-        break;
-      default:
-        this.totalLosses += 1;
+    } else {
+      switch (match.awayTeamGoals < match.homeTeamGoals) {
+        case true:
+          this.totalVictories += 1;
+          break;
+        default:
+          this.totalLosses += 1;
+      }
     }
   }
 
