@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import * as express from 'express';
-import { login, matches, teams } from './routes';
+import { login, matches, teams, leaderboard } from './routes';
 import error from './middlewares/error';
 
 class App {
@@ -35,6 +35,7 @@ class App {
     this.app.use('/login', login);
     this.app.use('/teams', teams);
     this.app.use('/matches', matches);
+    this.app.use('/leaderboard', leaderboard);
   }
 
   public setErrorHandler(): void {

@@ -36,3 +36,17 @@ export type LeaderBoard = {
   goalsBalance: number,
   efficiency: number
 };
+
+export type GoalsCounter = {
+  homeTeam: number,
+  awayTeam: number,
+  homeTeamGoals: number,
+  awayTeamGoals: number,
+};
+
+export type TeamsAndCorrespondingMatches = {
+  id: number,
+  teamName: string,
+  home: [GoalsCounter],
+  away: [GoalsCounter],
+};

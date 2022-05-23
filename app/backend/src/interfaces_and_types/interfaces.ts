@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { User, Team, Matches } from './types';
+import { User, Team, Matches, LeaderBoard, TeamsAndCorrespondingMatches } from './types';
 
 export interface IUserDB {
   getByEmail(email: string): Promise< User | null >,
@@ -26,6 +26,7 @@ export interface ITeamsService {
 export interface ITeamDB {
   getAll(): Promise<Team[] | null>,
   getById(id: number): Promise<Team | null>
+  getTeamsAndCorrespondingMatches(): Promise<TeamsAndCorrespondingMatches[] | null>
 }
 
 export interface IMatchesService {
@@ -40,4 +41,19 @@ export interface IMatchesDB {
   create(match: Matches): Promise<Matches>
   update(id: number): void
   updateGoals(id: number, homeTeamGoals: number, awayTeamGoals: number): Promise<number>
+}
+
+export interface ILeaderBoardService {
+  getLeaderboard(awayOrHome?: string): Promise<LeaderBoard[] | null>
+  rank?: number,
+  name: string,
+  totalPoints: number,
+  totalGames: number,
+  totalVictories: number,
+  totalDraws: number,
+  totalLosses: number,
+  goalsFavor: number,
+  goalsOwn: number,
+  goalsBalance: number,
+  efficiency: number
 }
