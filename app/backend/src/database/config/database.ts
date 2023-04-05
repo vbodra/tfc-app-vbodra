@@ -2,12 +2,12 @@ import 'dotenv/config';
 import { Options } from 'sequelize';
 
 const config: Options = {
-  username: 'tfc_db_0ab1_user',
-  password: 'sQ2BjhGgOL7ahx2PiEaDmuhkQd8o6mQ8',
-  database: 'tfc_db_0ab1',
-  host: "dpg-cgmt372ut4meq5l068ug-a",
-  port: 5432,
-  dialect: 'postgres',
+  username: 'sql10611324',
+  password: 'LzMs4FEcAT',
+  database: 'sql10611324',
+  host: 'sql10.freesqldatabase.com',
+  port: 3306,
+  dialect: 'mysql',
   dialectOptions: {
     timezone: 'Z',
   },
